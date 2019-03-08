@@ -9,7 +9,7 @@ let filesToCache = [
 ];
 
 self.addEventListener('install', function(event) {
-    event.waitUntill(
+    event.waitUntil(
         caches.open(currentCacheName)
             .then(function (cache) {
                 return cache.addAll(filesToCache)
@@ -18,7 +18,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-    event.waitUntill(
+    event.waitUntil(
         cached.keys()
             .then(function (cachedNames) {
                 return Promise.all(
@@ -32,8 +32,21 @@ self.addEventListener('activate', function(event) {
     )
 });
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request)
-    );
+
+//FAST TRACK
+self.addEventListener('install', (event)=>{
+    event.waitUntil(self.skipWaiting());
 });
+
+
+self.addEventListener('activate', (event)=>{
+    event.waitUntil(self.clients.claim());
+});
+//FAST TRACK END
+
+
+// self.addEventListener('fetch', function(event) {
+//     event.respondWith(
+//         caches.match(event.request)
+//     );
+// });
