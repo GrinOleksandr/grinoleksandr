@@ -19,7 +19,7 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('activate', function(event) {
     event.waitUntil(
-        cached.keys()
+        caches.keys()
             .then(function (cachedNames) {
                 return Promise.all(
                     cachedNames.filter(function (cacheName) {
