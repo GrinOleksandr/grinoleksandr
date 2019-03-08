@@ -1,24 +1,14 @@
-if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./serviceWorker.js')
-         .then(function(registration) {
-            registration.addEventListener('updatefound', function() {
-                // If updatefound is fired, it means that there's
-                // a new service worker being installed.
-                var installingWorker = registration.installing;
-                console.log('A new service worker is being installed:',
-                    installingWorker);
-
-                // You can listen for changes to the installing service worker's
-                // state via installingWorker.onstatechange
-            });
-        })
-        .catch(function(error) {
-            console.log('Service worker registration failed:', error);
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./serviceWorker.js').then(function(registration) {
+            // Регистрация успешна
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+            // Регистрация не успешна
+            console.log('ServiceWorker registration failed: ', err);
         });
-} else {
-    console.log('Service workers are not supported.');
+    });
 }
-
 
 
 
