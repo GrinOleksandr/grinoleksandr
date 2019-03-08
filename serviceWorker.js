@@ -8,34 +8,39 @@ let filesToCache = [
     '/css/reset.css'
 ];
 
-self.addEventListener('install', function(event) {
-    // установка
-    event.waitUntil(
-        caches.open(currentCacheName)
-            .then(cache => {
-                console.log('Opened cache');
-                return cache.addAll(filesToCache);
-            })
-            .then(() => self.skipWaiting())
-    )
-});
 
-self.addEventListener('activate', event => {
-    event.waitUntil(self.clients.claim());
-    console.log("cativated");
+self.addEventListener('install', function(e) {
+    console.log('[Service Worker] Install');
+    e.waitUntil(
+        caches.open(currentCacheName).then(function(cache) {
+            console.log('[Service Worker] Caching all: app shell and content');
+            return cache.addAll(filesToCache);
+        })
+    );
 });
 
 
+self.addEventListener('activate', function(e) {
+    console.log('[Service Worker] ACTIVATE');
+    e.waitUntil(
+        caches.open(currentCacheName).then(function(cache) {
+            console.log('[Service Worker] Caching all: app shell and content');
+            return cache.addAll(filesToCache);
+        })
+    );
+});
 
 
-self.addEventListener('fetch', function(event){
-    event.respondWith(
-        fetch(e.request)
-            .then((response) => {
-                return caches.open(currentCacheName).then((cache) => {
-                    cache.put(e.request.url,response.clone());
-                    response.clone();
-                })
-            })
-    )
-})
+
+
+
+
+
+
+
+
+
+self.addEventListener('fetch', function(e) {
+    console.log('[Service Worker] Fetched resource '+e.request.url);
+});
+
