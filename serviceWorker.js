@@ -20,15 +20,7 @@ self.addEventListener('install', function(e) {
 });
 
 
-self.addEventListener('activate', function(e) {
-    console.log('[Service Worker] ACTIVATE');
-    e.waitUntil(
-        caches.open(currentCacheName).then(function(cache) {
-            console.log('[Service Worker] Caching all: app shell and content');
-            return cache.addAll(filesToCache);
-        })
-    );
-});
+
 
 
 
