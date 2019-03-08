@@ -62,8 +62,6 @@ function addRepositoryToList(repo) {
     myReposList.appendChild(myRepoListItem);
 
     function showLastUpdated(ev) {
-        console.log("Last commit was: ", repo.updated_at);
-        console.log("target: ", ev);
         let target = ev.target.parentElement;
         if (target.dataset.isLastUpdatedInfoDisplayed !== "true") {
             let loader2img = document.createElement("img");
