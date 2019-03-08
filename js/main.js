@@ -1,3 +1,21 @@
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./serviceWorker.js')
+        .then(function (registration) {
+            console.log("***REGISTRATION SUCCESSFUL");
+        })
+        .catch(function (err) {
+            console.log("***REGISTRATION FAILED!");
+        })
+}
+
+
+
+
+
+
+
+
+
 let myReposList = document.getElementById("myReposList");
 myReposList.innerHTML = '<img src = "img/AjaxLoader.gif" class = "loader1" >';
 
@@ -12,7 +30,6 @@ fetch("https://api.github.com/users/GrinOleksandr/repos",{
         },1000);})
     .catch(error => console.log("Данные не получены: " + error ));
 
-
 let aboutMeBlock = document.createElement("div");
 aboutMeBlock.id = "about_me_block";
 
@@ -22,8 +39,6 @@ loader3img.className = "loader3";
 
 aboutMeBlock.appendChild(loader3img);
 document.getElementById("content").appendChild(aboutMeBlock);
-
-
 
 fetch("https://api.github.com/users/GrinOleksandr", {method:'GET'})
     .then(response => response.json())
@@ -38,7 +53,6 @@ fetch("https://api.github.com/users/GrinOleksandr", {method:'GET'})
             aboutMeBlock.getElementsByClassName("loader3")[0].remove();
             aboutMeBlock.appendChild(myAvatarImg);
             aboutMeBlock.appendChild(createdAt);
-
         }, 2000)})
     .catch(error => console.log("Данные не получены: " + error));
 
