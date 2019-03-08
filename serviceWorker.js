@@ -1,6 +1,7 @@
 let currentCacheName = 'myGitHub';
 
 let filesToCache = [
+    '/',
     '/index.html',
     '/js/main/js',
     '/img/AjaxLoader.gif',
@@ -8,39 +9,27 @@ let filesToCache = [
     '/css/reset.css'
 ];
 
-
 self.addEventListener('install', function(e) {
-    console.log('[Service Worker] Install');
     e.waitUntil(
-        caches.open(currentCacheName).then(function(cache) {
-            console.log('[Service Worker] Caching all: app shell and content');
+        caches.open(currentCacheName).then(function (cache) {
             return cache.addAll(filesToCache);
         })
-            .catch(function(err){
+            .catch(function (err) {
                 console.log(err)
             })
     );
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-self.addEventListener('fetch', function(event) {
-    console.log(event.request.url);
-
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
+self.addEventListener('fetch', function(e) {
+    e.respondWith(
+        caches.match(e.request).then(function (r) {
+            return r || fetch(e.request).then(function (response) {
+                return caches.open(currentCacheName).then(function (cache) {
+                    cache.put(e.request, response.clone());
+                    return response;
+                });
+            });
         })
     );
 });

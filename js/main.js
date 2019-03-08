@@ -1,13 +1,9 @@
 if ('serviceWorker' in navigator) {
      navigator.serviceWorker.register('./serviceWorker.js')
+         .then(function(){
+             console.log("REGISTERED")
+         })
 }
-
-
-
-
-
-
-
 
 let myReposList = document.getElementById("myReposList");
 myReposList.innerHTML = '<img src = "img/AjaxLoader.gif" class = "loader1" >';
