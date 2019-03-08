@@ -26,10 +26,16 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.open(cacheName)
+        caches.open(currentCacheName)
             .then(cache => cache.match(event.request, {ignoreSearch: true}))
             .then(response => {
                 return response || fetch(event.request);
             })
     );
+});
+
+
+//log
+self.addEventListener('fetch', function(event) {
+    console.log(event.request.url);
 });
