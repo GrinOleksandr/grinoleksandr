@@ -45,8 +45,8 @@ self.addEventListener('activate', (event)=>{
 //FAST TRACK END
 
 
-// self.addEventListener('fetch', function(event) {
-//     event.respondWith(
-//         caches.match(event.request)
-//     );
-// });
+self.addEventListener('fetch', function(event) {
+    event.respondWith(
+        caches.match(event.request)
+    );
+});
